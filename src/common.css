@@ -1,0 +1,32 @@
+page, block, view, scroll-view, swiper, movable-view, icon,
+text, progress, button, checkbox, form, input, label,
+picker, picker-view, radio, slider, switch, textarea,
+navigator, audio, image, video, map, canvas, contact-button,
+cover-image, cover-view {
+  box-sizing: border-box;
+}
+
+/* 单行超出时变成省略号 */
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 超出两行时变成省略号 */
+.ellipsis-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  word-wrap: break-word
+}
+
+.ellipsis-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  word-wrap: break-word
+}
