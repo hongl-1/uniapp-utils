@@ -1,0 +1,27 @@
+.DS_Store
+node_modules
+drawio-chrome
+/dist
+.history
+.scannerwork
+pnpm-lock.yaml
+package-lock.json
+*.zip
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
