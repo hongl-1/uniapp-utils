@@ -237,44 +237,6 @@ export default {
     });
   },
 
-  /**
-   * 页面调整
-   * @param {Object} page 订单前缀
-   * @param {Function} cb 回调地址
-   */
-  jumpPage(page, cb) {
-    let query;
-    let url = `/pages/${page.url}`;
-
-    if (page.query) {
-      query = utils.toQueryString(page.query);
-      url += `?${query}`;
-    }
-
-    switch (page.target) {
-      case 'redirectTo':
-        uni.redirectTo({
-          url, complete() {cb && cb()}
-        });
-        break;
-      case 'reLaunch':
-        uni.reLaunch({
-          url, complete() {cb && cb()}
-        });
-        break;
-      case 'switchTab':
-        uni.switchTab({
-          url, complete() {cb && cb()}
-        });
-        break;
-      default:
-        uni.navigateTo({
-          url, complete() {cb && cb()}
-        });
-        break;
-    }
-  },
-
   // 返回上一页
   /**
    * 返回上一页
@@ -358,6 +320,11 @@ export default {
     setTimeout(() => {
       callBack();
     }, duration);
+  },
+  showLoading(title) {
+    uni.showLoading({
+      title
+    })
   },
   isObject(obj) {
     return typeof obj === 'object' && obj !== null;
