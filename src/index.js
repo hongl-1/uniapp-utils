@@ -168,9 +168,9 @@ export default {
    * @param {Function} cb 回调函数
    */
   download(url, cb) {
-    if (url.search('http://') !== -1) {
-      url = url.replace('http://', 'https://')
-    }
+    // if (url.search('http://') !== -1) {
+    //  url = url.replace('http://', 'https://')
+    // }
 
     uni.showLoading({
       title: '正在保存图片...'
@@ -321,9 +321,10 @@ export default {
       callBack();
     }, duration);
   },
-  showLoading(title) {
+  showLoading(title, mask = true) {
     uni.showLoading({
-      title
+      title,
+      mask
     })
   },
   isObject(obj) {
