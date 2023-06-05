@@ -167,14 +167,15 @@ export default {
    * @param {string} url 图片地址
    * @param {Function} cb 回调函数
    */
-  download(url, cb) {
+  download(url, type = 'image', cb = () => {}) {
+    console.log(url, type)
     // if (url.search('http://') !== -1) {
-    //  url = url.replace('http://', 'https://')
+    //   url = url.replace('http://', 'https://')
     // }
-
-    uni.showLoading({
-      title: '正在保存图片...'
-    });
+    //
+    // uni.showLoading({
+    //   title: `正在保存${type === 'image' ? '图片' : '视频'}...`
+    // });
 
     const saveImg = () => {
       uni.getImageInfo({
@@ -192,24 +193,45 @@ export default {
         }
       });
     }
+    const saveVideo = () => {
+      uni.downloadFile({
+        url: url,
+        success: file => {
+          console.log(file)
+          uni.saveVideoToPhotosAlbum({
+            filePath: file.tempFilePath,
+            success(e) {
+              cb && cb();
+              return uni.showToast({
+                title: "保存成功！",
+              });
+            },
+            complete: e => {
+              console.log(e)
+            }
+          });
+        }
+      });
+    }
 
-    let album = 'scope.writePhotosAlbum';
-    // #ifdef MP-TOUTIAO
-    album = 'scope.album';
-    // #endif
+    const save = () => {
+      type === 'image' ? saveImg() : saveVideo();
+    }
+
+    let album = 'scope.writePhotosAlbum'
 
     uni.getSetting({
       success: res => {
         // 如果没有相册权限
         if (res.authSetting[album]) {
-          saveImg();
+          save();
         } else {
           //向用户发起授权请求
           uni.authorize({
             scope: album,
             success: () => {
               // 授权成功保存图片到系统相册
-              saveImg();
+              save();
             },
             //授权失败
             fail: () => {
@@ -321,10 +343,9 @@ export default {
       callBack();
     }, duration);
   },
-  showLoading(title, mask = true) {
+  showLoading(title) {
     uni.showLoading({
-      title,
-      mask
+      title
     })
   },
   isObject(obj) {
